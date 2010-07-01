@@ -52,19 +52,22 @@ body {
 
 /* Slide */
 
-.jqt .slide.start {
+.jqt .slide.start, .jqt .default.start {
     -webkit-transition-property: -webkit-transform;
 }
 
-.jqt .slide.in,  .jqt .slide.out.reverse.start {
+.jqt .slide.in, .jqt .slide.out.reverse.start,
+.jqt .default.in, .jqt .default.out.reverse.start {
     -webkit-transform: translateX(100%);
 }
 
-.jqt .slide.out.start, .jqt .slide.in.reverse {
+.jqt .slide.out.start, .jqt .slide.in.reverse,
+.jqt .default.out.start, .jqt .default.in.reverse {
     -webkit-transform: translateX(-100%);
 }
 
-.jqt .slide.out, .jqt .slide.out.reverse, .jqt .slide.in.start, .jqt .slide.in.reverse.start {
+.jqt .slide.out, .jqt .slide.out.reverse, .jqt .slide.in.start, .jqt .slide.in.reverse.start,
+.jqt .default.out, .jqt .default.out.reverse, .jqt .default.in.start, .jqt .default.in.reverse.start {
     -webkit-transform: translateX(0);
 }
 
