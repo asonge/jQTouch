@@ -1,12 +1,14 @@
-        _/    _/_/    _/_/_/_/_/                              _/       
-           _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/    
-      _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/   
-     _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/    
-    _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/     
-   _/                                                                  
+        _/    _/_/    _/_/_/_/_/                              _/
+           _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/
+      _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/
+     _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/
+    _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/
+   _/
 _/
 
-"ALL FORKED UP" - Messed with by Jonathan Hawkes <http://programming.brownrice.com/>
+"ALL FORKED UP"
+   - Messed with by:
+   - Jonathan Hawkes <http://programming.brownrice.com/>
 
 
 Created by David Kaneda <http://www.davidkaneda.com/>

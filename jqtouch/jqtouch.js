@@ -33,6 +33,7 @@
         // Initialize internal variables
         var $body,
             $head=$('head'),
+            $jqt,
             hist=[],
             newPageCount=0,
             jQTSettings={},
@@ -45,38 +46,40 @@
             publicObj={},
             tapBuffer=351,
             extensions=$.jQTouch.prototype.extensions,
-            defaultAnimations=['slide','flip','slideup','swap','cube','pop','dissolve','fade','back'],
-            animations=[],
-            hairextensions='';
+            animations=[];
+
         // Get the party started
         init(options);
 
         function init(options) {
 
+            var defaultAnimations = ['default','slide','flip','slideup','swap','cube','pop','dissolve','fade'];
             var defaults = {
+                icon: null,
                 addGlossToIcon: true,
-                backSelector: '.back, .cancel, .goback',
-                cacheGetRequests: true,
-                cubeSelector: '.cube',
-                dissolveSelector: '.dissolve',
-                fadeSelector: '.fade',
+                startupScreen: null,
                 fixedViewport: true,
-                flipSelector: '.flip',
-                formSelector: 'form',
                 fullScreen: true,
                 fullScreenClass: 'fullscreen',
-                icon: null,
-                touchSelector: 'a, .touch',
-                popSelector: '.pop',
-                preloadImages: false,
-                slideSelector: '#jqt > * > ul li a, .slide',
-                slideupSelector: '.slideup',
-                startupScreen: null,
                 statusBar: 'default', // other options: black-translucent, black
+                paneSelector: '#jqt, .jqt',
+                touchSelector: 'a, .touch',
+                backSelector: '.back, .cancel, .goback',
                 submitSelector: '.submit',
-                swapSelector: '.swap',
+                formSelector: 'form',
                 useAnimations: true,
-                useFastTouch: true // Experimental.
+                defaultSelector: '.jqt > * > ul li a, .default',
+                slideSelector: '.slide',
+                flipSelector: '.flip',
+                slideupSelector: '.slideup',
+                swapSelector: '.swap',
+                cubeSelector: '.cube',
+                popSelector: '.pop',
+                dissolveSelector: '.dissolve',
+                fadeSelector: '.fade',
+                cacheGetRequests: true,
+                useFastTouch: true, // Experimental.
+                preloadImages: false
             };
             jQTSettings = $.extend({}, defaults, options);
 
@@ -86,6 +89,8 @@
                     (new Image()).src = jQTSettings.preloadImages[i];
                 };
             }
+
+            var hairextensions = '';
             // Set icon
             if (jQTSettings.icon) {
                 var precomposed = (jQTSettings.addGlossToIcon) ? '' : '-precomposed';
@@ -138,21 +143,21 @@
                 $(jQTSettings.backSelector).tap(liveTap);
                 $(jQTSettings.submitSelector).tap(submitParentForm);
 
-                $body = $('#jqt');
+                $body = $('body');
+                $jqt = $(jQTSettings.paneSelector).addClass('jqt');
 
                 if (jQTSettings.fullScreenClass && window.navigator.standalone == true) {
                     $body.addClass(jQTSettings.fullScreenClass + ' ' + jQTSettings.statusBar);
                 }
 
                 // Create custom live events
-                $body
-                    .bind('touchstart', handleTouch)
-                    .bind('orientationchange', updateOrientation)
-                    .trigger('orientationchange')
+                $body.bind('orientationchange', updateOrientation)
+                     .trigger('orientationchange');
+                $jqt.bind('touchstart', handleTouch)
                     .submit(submitForm);
 
                 if (jQTSettings.useFastTouch && $.support.touch) {
-                    $body.click(function(e) {
+                    $jqt.click(function(e) {
                         var timeDiff = (new Date()).getTime() - lastAnimationTime;
                         if (timeDiff > tapBuffer) {
                             var $el = $(e.target);
@@ -170,8 +175,8 @@
 
                     });
 
-                    // This additionally gets rid of form focusses
-                    $body.mousedown(function(e) {
+                    // This additionally gets rid of form focuses
+                    $jqt.mousedown(function(e) {
                         var timeDiff = (new Date()).getTime() - lastAnimationTime;
                         if (timeDiff < tapBuffer) {
                             return false;
@@ -179,25 +184,34 @@
                     });
                 }
 
-                // Make sure exactly one child of body has "current" class
-                if ($('#jqt > .current').length == 0) {
-                    currentPage = $('#jqt > *:first');
+                // Make sure that exactly one pane has the "active" class
+                if ($jqt.filter('.active').length == 0) {
+                  $jqt.eq(0).addClass('active');
                 } else {
-                    currentPage = $('#jqt > .current:first');
-                    $('#jqt > .current').removeClass('current');
+                  $jqt.filter('.active').slice(1).removeClass('active');
                 }
 
+                // Make sure exactly one child of each pane has "current" class
+                $jqt.each(function() {
+                  var t = $(this), c = t.children('.current');
+                  if (c.length == 0) {
+                     t.children(':first').addClass('current');
+                  } else if (c.length > 1) {
+                     c.slice(1).removeClass('current');
+                  }
+                });
+
                 // Go to the top of the "current" page
-                $(currentPage).addClass('current');
+                currentPage = $jqt.filter('.active').children('.current');
                 location.hash = '#' + $(currentPage).attr('id');
                 addPageToHistory(currentPage);
-                scrollTo(0, 0);
+                scrollTo(0, 1);
                 startHashCheck();
             });
         }
 
         // PUBLIC FUNCTIONS
-        function goBack(to) {
+        function goBack(to, target) {
             // Init the param
             if (hist.length <= 1)
             {
@@ -232,7 +246,8 @@
 
             return publicObj;
         }
-        function goTo(toPage, animation, reverse) {
+
+        function goTo(toPage, animation, reverse, target) {
             var fromPage = hist[0].page;
 
             if (typeof(animation) === 'string') {
@@ -242,21 +257,17 @@
                         break;
                     }
                 }
+            } else if (typeof(animation) === 'undefined') {
+                animation = animations[0];
             }
             if (typeof(toPage) === 'string') {
                 nextPage = $(toPage);
-                if (nextPage.length < 1)
-                {
-                    showPageByHref(toPage, {
-                        'animation': animation
-                    });
+                if (nextPage.length < 1) {
+                    showPageByHref(toPage, {'animation': animation}, target);
                     return;
-                }
-                else
-                {
+                } else {
                     toPage = nextPage;
                 }
-
             }
             if (animatePages(fromPage, toPage, animation, reverse)) {
                 addPageToHistory(toPage, animation, reverse);
@@ -266,6 +277,7 @@
                 return false;
             }
         }
+
         function getOrientation() {
             return orientation;
         }
@@ -324,13 +336,15 @@
                 showPageByHref($el.attr('href'), {
                     animation: animation,
                     callback: function() {
-                        $el.removeClass('loading'); setTimeout($.fn.unselect, 250, $el);
+                        $el.removeClass('loading');
+                        setTimeout($.fn.unselect, 250, $el);
                     },
                     $referrer: $el
-                });
+                }, target ? '#'+target : $el.closest('.jqt') );
             }
             return false;
         }
+
         function addPageToHistory(page, animation, reverse) {
             // Grab some info
             var pageId = page.attr('id');
@@ -342,6 +356,7 @@
                 id: pageId
             });
         }
+
         function animatePages(fromPage, toPage, animation, backwards) {
             // Error check for target page
             if (toPage.length === 0) {
@@ -363,6 +378,9 @@
             // Make sure we are scrolled up to hide location bar
             toPage.css('top', window.pageYOffset);
 
+            // Stop hash check while we animate
+            stopHashCheck();
+
             // Define callback to run after animation completes
             var callback = function animationEnd(event) {
 
@@ -370,8 +388,8 @@
                 fromPage[0].removeEventListener('webkitAnimationEnd', callback);
 
                 if (animation) {
-                        toPage.removeClass('start in ' + animation.name);
-                        fromPage.removeClass('start out current ' + animation.name);
+                    toPage.removeClass('start in ' + animation.name);
+                    fromPage.removeClass('start out current ' + animation.name);
                     if (backwards) {
                         toPage.toggleClass('reverse');
                         fromPage.toggleClass('reverse');
@@ -384,7 +402,6 @@
                 toPage.trigger('pageAnimationEnd', { direction: 'in', reverse: backwards });
                 fromPage.trigger('pageAnimationEnd', { direction: 'out', reverse: backwards });
 
-                clearInterval(hashCheckInterval);
                 currentPage = toPage;
                 location.hash = '#' + currentPage.attr('id');
                 startHashCheck();
@@ -396,6 +413,11 @@
                 lastAnimationTime = (new Date()).getTime();
                 tapReady = true;
 
+            }
+
+            if ($jqt.length > 1) {
+                $jqt.removeClass('active');
+                toPage.parent().addClass('active');
             }
 
             fromPage.trigger('pageAnimationStart', { direction: 'out' });
@@ -428,6 +450,7 @@
 
             return true;
         }
+
         function hashCheck() {
             var curid = currentPage.attr('id');
             if (location.hash != '#' + curid) {
@@ -438,18 +461,25 @@
                 location.hash = '#' + curid;
             }
         }
+
         function startHashCheck() {
             hashCheckInterval = setInterval(hashCheck, 100);
         }
-        function insertPages(nodes, animation) {
+
+        function stopHashCheck() {
+            clearInterval(hashCheckInterval);
+        }
+
+        function insertPages(nodes, animation, pane) {
             var targetPage = null;
+            pane = (typeof pane === 'undefined') ? $jqt.filter('.active') : $(pane);
             $(nodes).each(function(index, node) {
                 var $node = $(this);
                 if (!$node.attr('id')) {
                     $node.attr('id', 'page-' + (++newPageCount));
                 }
 
-		        $body.trigger('pageInserted', {page: $node.appendTo($body)});
+                pane.trigger('pageInserted', {page: $node.appendTo(pane)});
 
                 if ($node.hasClass('current') || !targetPage) {
                     targetPage = $node;
@@ -462,7 +492,8 @@
                 return false;
             }
         }
-        function showPageByHref(href, options) {
+
+        function showPageByHref(href, options, target) {
             var defaults = {
                 data: null,
                 method: 'GET',
@@ -479,7 +510,7 @@
                     data: settings.data,
                     type: settings.method,
                     success: function (data, textStatus) {
-                        var firstPage = insertPages(data, settings.animation);
+                        var firstPage = insertPages(data, settings.animation, target);
                         if (firstPage) {
                             if (settings.method == 'GET' && jQTSettings.cacheGetRequests === true && settings.$referrer) {
                                 settings.$referrer.attr('href', '#' + firstPage.attr('id'));
@@ -503,8 +534,10 @@
                 settings.$referrer.unselect();
             }
         }
+
         function submitForm(e, callback) {
             var $form = (typeof(e)==='string') ? $(e).eq(0) : (e.target ? $(e.target) : $(e));
+            var target = $form.attr('target');
 
             if ($form.length && $form.is(jQTSettings.formSelector)) {
                 showPageByHref($form.attr('action'), {
@@ -512,11 +545,12 @@
                     method: $form.attr('method') || "POST",
                     animation: animations[0] || null,
                     callback: callback
-                });
+                }, target ? '#'+target : $form.closest('.jqt') );
                 return false;
             }
             return true;
         }
+
         function submitParentForm(e) {
             var $form = $(this).closest('form');
             if ($form.length) {
@@ -527,6 +561,7 @@
             }
             return true;
         }
+
         function addAnimation(animation) {
             if (typeof(animation.selector) == 'string' && typeof(animation.name) == 'string') {
                 animations.push(animation);
@@ -534,16 +569,18 @@
                 touchSelectors.push(animation.selector);
             }
         }
+
         function updateOrientation() {
             orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
-            $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
+            $(this).removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
+
         function handleTouch(e) {
             var $el = $(e.target);
 
             // Only handle touchSelectors
-            if (!$(e.target).is(touchSelectors.join(', '))) {
-                var $link = $(e.target).closest('a, area');
+            if (!$el.is(touchSelectors.join(', '))) {
+                var $link = $el.closest('a, area');
 
                 if ($link.length && $link.is(touchSelectors.join(', '))) {
                     $el = $link;
