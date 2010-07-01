@@ -6,7 +6,7 @@
    _/                                                                  
 _/
 
-"ALL FORKED UP" - Messed with by Jonathan Hawkes (jonathan@brownrice.com)
+"ALL FORKED UP" - Messed with by Jonathan Hawkes <jonathan@brownrice.com> <http://programming.brownrice.com/>
 
 
 Created by David Kaneda <http://www.davidkaneda.com>
