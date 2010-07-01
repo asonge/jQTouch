@@ -6,10 +6,10 @@
    _/                                                                  
 _/
 
-"ALL FORKED UP" - Messed with by Jonathan Hawkes <jonathan@brownrice.com> <http://programming.brownrice.com/>
+"ALL FORKED UP" - Messed with by Jonathan Hawkes <http://programming.brownrice.com/>
 
 
-Created by David Kaneda <http://www.davidkaneda.com>
+Created by David Kaneda <http://www.davidkaneda.com/>
 Documentation and issue tracking on Google Code <http://code.google.com/p/jqtouch/>
 
 Special thanks to Jonathan Stark <http://jonathanstark.com/>
