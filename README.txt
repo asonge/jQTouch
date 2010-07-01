@@ -6,6 +6,9 @@
    _/                                                                  
 _/
 
+"ALL FORKED UP" - Messed with by Jonathan Hawkes (jonathan@brownrice.com)
+
+
 Created by David Kaneda <http://www.davidkaneda.com>
 Documentation and issue tracking on Google Code <http://code.google.com/p/jqtouch/>
 
@@ -17,3 +20,5 @@ See LICENSE.txt for license.
 
 If you use jQTouch, please consider supporting its development:
 http://bit.ly/support-jqt
+
+
