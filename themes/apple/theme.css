@@ -1,12 +1,12 @@
-body {
+body, .jqt {
     background: rgb(0,0,0);
 }
 
-#jqt > * {
+body > *, .jqt > * {
     background: rgb(197,204,211) url(img/pinstripes.png);
 }
 
-#jqt h1, #jqt h2 {
+.jqt h1, .jqt h2 {
     font: bold 18px "Helvetica Neue", Helvetica;
     text-shadow: rgba(255,255,255,.2) 0 1px 1px;
     color: rgb(76, 86, 108);
@@ -15,7 +15,7 @@ body {
 
 /* @group Toolbar */
 
-#jqt .toolbar {
+.jqt .toolbar {
     -webkit-box-sizing: border-box;
     border-bottom: 1px solid #2d3642;
     padding: 10px;
@@ -24,11 +24,11 @@ body {
     position: relative;
 }
 
-#jqt .black-translucent .toolbar {
+.jqt .black-translucent .toolbar {
 	margin-top: 20px;
 }
 
-div#jqt .toolbar > h1 {
+div.jqt .toolbar > h1 {
     position: absolute;
     overflow: hidden;
     left: 50%;
@@ -46,12 +46,12 @@ div#jqt .toolbar > h1 {
     color: #fff;
 }
 
-div#jqt.landscape .toolbar > h1 {
+div.jqt.landscape .toolbar > h1 {
     margin-left: -125px;
     width: 250px;
 }
 
-#jqt .button, #jqt .back, #jqt .cancel, #jqt .add {
+.jqt .button, .jqt .back, .jqt .cancel, .jqt .add {
     position: absolute;
     overflow: hidden;
     top: 8px;
@@ -74,16 +74,16 @@ div#jqt.landscape .toolbar > h1 {
     -webkit-border-image: url(img/toolButton.png) 0 5 0 5;
 }
 
-#jqt .button.active, #jqt .cancel.active, #jqt .add.active {
-    -webkit-border-image: url(img/toolButton.png) 0 5 0 5;	
+.jqt .button.active, .jqt .cancel.active, .jqt .add.active {
+    -webkit-border-image: url(img/toolButton_clicked.png) 0 5 0 5;
 }
 
-#jqt .blueButton {
+.jqt .blueButton {
     -webkit-border-image: url(img/actionButton.png) 0 5 0 5;
     border-width: 0 5px;
 }
 
-#jqt .back {
+.jqt .back {
     left: 6px;
     right: auto;
     padding: 0;
@@ -91,55 +91,58 @@ div#jqt.landscape .toolbar > h1 {
     border-width: 0 8px 0 14px;
     -webkit-border-image: url(img/backButton.png) 0 8 0 14;
 }
-
-#jqt .back.active {
-    -webkit-border-image: url(img/backButton.png) 0 8 0 14;
+.jqt .back.active {
+    -webkit-border-image: url(img/backButton_clicked.png) 0 8 0 14;
+    color: #aaa;
 }
 
-#jqt .leftButton, #jqt .cancel {
+.jqt .leftButton, .jqt .cancel {
     left: 6px;
     right: auto;
 }
 
-#jqt .add {
+.jqt .add {
     font-size: 24px;
     line-height: 24px;
     font-weight: bold;
 }
 
-#jqt .whiteButton,
-#jqt .grayButton, #jqt .redButton, #jqt .blueButton, #jqt .greenButton {
+.jqt .whiteButton,
+.jqt .grayButton, .jqt .redButton, .jqt .blueButton, .jqt .greenButton {
     display: block;
     border-width: 0 12px;
-    padding: 10px;
+    padding: 13px;
     text-align: center;
     font-size: 20px;
     font-weight: bold;
     text-decoration: inherit;
     color: inherit;
+    width:80%;
+    min-width:250px;
+    margin:auto;
 }
 
-#jqt .whiteButton.active, #jqt .grayButton.active, #jqt .redButton.active, #jqt .blueButton.active, #jqt .greenButton.active,
-#jqt .whiteButton:active, #jqt .grayButton:active, #jqt .redButton:active, #jqt .blueButton:active, #jqt .greenButton:active {
+.jqt .whiteButton.active, .jqt .grayButton.active, .jqt .redButton.active, .jqt .blueButton.active, .jqt .greenButton.active,
+.jqt .whiteButton:active, .jqt .grayButton:active, .jqt .redButton:active, .jqt .blueButton:active, .jqt .greenButton:active {
     -webkit-border-image: url(img/activeButton.png) 0 12 0 12;
 }
 
-#jqt .whiteButton {
+.jqt .whiteButton {
     -webkit-border-image: url(img/whiteButton.png) 0 12 0 12;
     text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
 }
 
-#jqt .grayButton {
+.jqt .grayButton {
     -webkit-border-image: url(img/grayButton.png) 0 12 0 12;
     color: #FFFFFF;
 }
 
-#jqt .redButton {
+.jqt .redButton {
     -webkit-border-image: url(img/redButton.png) 0 12 0 12;
     color: #FFFFFF;
 }
 
-#jqt .greenButton {
+.jqt .greenButton {
     -webkit-border-image: url(img/greenButton.png) 0 12 0 12;
     color: #FFFFFF;
 }
@@ -148,11 +151,11 @@ div#jqt.landscape .toolbar > h1 {
 
 /* @group Lists */
 
-#jqt h1 + ul, #jqt h2 + ul, #jqt h3 + ul, #jqt h4 + ul, #jqt h5 + ul, #jqt h6 + ul {
+.jqt h1 + ul, .jqt h2 + ul, .jqt h3 + ul, .jqt h4 + ul, .jqt h5 + ul, .jqt h6 + ul {
     margin-top: 0;
 }
 
-#jqt ul {
+.jqt ul {
     color: black;
     background: #fff;
     border: 1px solid #B4B4B4;
@@ -162,7 +165,7 @@ div#jqt.landscape .toolbar > h1 {
     -webkit-border-radius: 8px;
 }
 
-#jqt ul li {
+.jqt ul li {
     color: #666;
     border-top: 1px solid #B4B4B4;
     list-style-type: none;
@@ -171,38 +174,38 @@ div#jqt.landscape .toolbar > h1 {
 
 /* when you have a first LI item on any list */
 
-#jqt li:first-child, #jqt li:first-child a {
+.jqt li:first-child, .jqt li:first-child a {
     border-top: 0;
     -webkit-border-top-left-radius: 8px;
     -webkit-border-top-right-radius: 8px;
 }
 
-#jqt li:last-child, #jqt li:last-child a {
+.jqt li:last-child, .jqt li:last-child a {
     -webkit-border-bottom-left-radius: 8px;
     -webkit-border-bottom-right-radius: 8px;
 }
 
 /* universal arrows */
 
-#jqt ul li.arrow {
+.jqt ul li.arrow {
     background-image: url(img/chevron.png);
     background-position: right center;
     background-repeat: no-repeat;
 }
 
-#jqt ul li.arrow a { 
+.jqt ul li.arrow a {
 	padding: 12px 22px 12px 10px;
 }
 
-#jqt #plastic ul li.arrow, #jqt #metal ul li.arrow {
-    background-image: url(../img/chevron.png);
+.jqt #plastic ul li.arrow, .jqt #metal ul li.arrow {
+    background-image: url(img/chevron.png);
     background-position: right center;
     background-repeat: no-repeat;
 }
 
 /* universal links on list */
 
-#jqt ul li a, #jqt li.img a + a {
+.jqt ul li a, .jqt li.img a + a {
     color: #000;
     text-decoration: none;
     text-overflow: ellipsis;
@@ -214,23 +217,27 @@ div#jqt.landscape .toolbar > h1 {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-#jqt ul li a.active {
+.jqt ul li a.active {
     background: #194fdb url(img/selection.png) 0 0 repeat-x;
     color: #fff;
 }
-
-#jqt ul li a.button {
+ul li a.active.loading {
+    background-image: url(img/loading.gif),url(img/selection.png);
+    background-position: 95% center, top left;
+    background-repeat: no-repeat, repeat-x;
+}
+.jqt ul li a.button {
     background-color: #194fdb;
     color: #fff;
 }
 
-#jqt ul li.img a + a {
+.jqt ul li.img a + a {
     margin: -10px 10px -20px -5px;
     font-size: 17px;
     font-weight: bold;
 }
 
-#jqt ul li.img a + a + a {
+.jqt ul li.img a + a + a {
     font-size: 14px;
     font-weight: normal;
     margin-left: -10px;
@@ -238,11 +245,11 @@ div#jqt.landscape .toolbar > h1 {
     margin-top: 0;
 }
 
-#jqt ul li.img a + small + a {
+.jqt ul li.img a + small + a {
     margin-left: -5px;
 }
 
-#jqt ul li.img a + small + a + a {
+.jqt ul li.img a + small + a + a {
     margin-left: -10px;
     margin-top: -20px;
     margin-bottom: -10px;
@@ -250,12 +257,12 @@ div#jqt.landscape .toolbar > h1 {
     font-weight: normal;
 }
 
-#jqt ul li.img a + small + a + a + a {
+.jqt ul li.img a + small + a + a + a {
     margin-left: 0px !important;
     margin-bottom: 0;
 }
 
-#jqt ul li a + a {
+.jqt ul li a + a {
     color: #000;
     font: 14px "Helvetica Neue", Helvetica;
     text-overflow: ellipsis;
@@ -266,7 +273,7 @@ div#jqt.landscape .toolbar > h1 {
     padding: 0;
 }
 
-#jqt ul li a + a + a, #jqt ul li.img a + a + a + a, #jqt ul li.img a + small + a + a + a {
+.jqt ul li a + a + a, .jqt ul li.img a + a + a + a, .jqt ul li.img a + small + a + a + a {
     color: #666;
     font: 13px "Helvetica Neue", Helvetica;
     margin: 0;
@@ -282,31 +289,31 @@ div#jqt.landscape .toolbar > h1 {
 
 /* @group Forms */
 
-#jqt ul.form li {
+.jqt ul.form li {
     padding: 7px 10px;
 }
 
-#jqt ul.form li.error {
+.jqt ul.form li.error {
     border: 2px solid red;
 }
 
-#jqt ul.form li.error + li.error {
+.jqt ul.form li.error + li.error {
     border-top: 0;
 }
 
-#jqt ul.form li:hover {
+.jqt ul.form li:hover {
     background: #fff;
 }
 
-#jqt ul li input[type="text"],
-#jqt ul li input[type="password"],
-#jqt ul li input[type="tel"],
-#jqt ul li input[type="number"],
-#jqt ul li input[type="search"],
-#jqt ul li input[type="email"],
-#jqt ul li input[type="url"],
-#jqt ul li textarea,
-#jqt ul li select {
+.jqt ul li input[type="text"],
+.jqt ul li input[type="password"],
+.jqt ul li input[type="tel"],
+.jqt ul li input[type="number"],
+.jqt ul li input[type="search"],
+.jqt ul li input[type="email"],
+.jqt ul li input[type="url"],
+.jqt ul li textarea,
+.jqt ul li select {
     color: #777;
     background: #fff url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
     border: 0;
@@ -318,27 +325,27 @@ div#jqt.landscape .toolbar > h1 {
     -webkit-appearance: textarea;
 }
 
-#jqt ul li textarea {
+.jqt ul li textarea {
     height: 120px;
     padding: 0;
     text-indent: -2px;
 }
 
-#jqt ul li select {
+.jqt ul li select {
     text-indent: 0px;
-    background: transparent url(../img/chevron.png) no-repeat 103% 3px;
+    background: transparent url(img/chevron.png) no-repeat 103% 3px;
     -webkit-appearance: textfield;
     margin-left: -6px;
     width: 104%;
 }
 
-#jqt ul li input[type="checkbox"], #jqt ul li input[type="radio"] {
+.jqt ul li input[type="checkbox"], .jqt ul li input[type="radio"] {
     margin: 0;
     color: rgb(50,79,133);
     padding: 10px 10px;
 }
 
-#jqt ul li input[type="checkbox"]:after, #jqt ul li input[type="radio"]:after {
+.jqt ul li input[type="checkbox"]:after, .jqt ul li input[type="radio"]:after {
     content: attr(title);
     font: 17px "Helvetica Neue", Helvetica;
     display: block;
@@ -349,11 +356,11 @@ div#jqt.landscape .toolbar > h1 {
 /* @end */
 
 /* @group Edge to edge */
-#jqt ul.edgetoedge {
+.jqt ul.edgetoedge {
     -webkit-border-radius: 0;
 }
-	
-#jqt ul.edgetoedge li.sep {
+
+.jqt ul.edgetoedge li.sep {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(139, 159, 171, 1)), to(rgba(181, 193, 201, 1.0)));
     border-bottom: 1px solid #b5c1c9;
     border-top: 1px solid #b5c1c9;
@@ -364,7 +371,18 @@ div#jqt.landscape .toolbar > h1 {
     text-shadow: #636a6f 0 1px 0;
 }
 
-#jqt .edgetoedge h4 {
+.jqt ul.edgetoedge li.sep {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(139, 159, 171, 1)), to(rgba(181, 193, 201, 1.0)));
+	    border-bottom: 1px solid #b5c1c9;
+	    border-top: 1px solid #b5c1c9;
+	    color: #fff;
+	    font-size: 16px;
+	    margin: 1px 0 0 0;
+	    padding: 2px 10px;
+	    text-shadow: #636a6f 0 1px 0;
+	}
+
+.jqt .edgetoedge h4 {
     color: #fff;
     background: rgb(154,159,170) url(img/listGroup.png) top left repeat-x;
     border-top: 1px solid rgb(165,177,186);
@@ -373,13 +391,13 @@ div#jqt.landscape .toolbar > h1 {
     padding: 2px 10px;
 }
 
-#jqt .edgetoedge, #jqt .metal {
+.jqt .edgetoedge, .jqt .metal {
     margin: 0;
     padding: 0;
     background-color: rgb(255,255,255);
 }
 
-#jqt .edgetoedge ul, #jqt .metal ul, #jqt .plastic ul {
+.jqt .edgetoedge ul, .jqt .metal ul, .jqt .plastic ul {
     -webkit-border-radius: 0;
     margin: 0;
     border-left: 0;
@@ -387,36 +405,36 @@ div#jqt.landscape .toolbar > h1 {
     border-top: 0;
 }
 
-#jqt .metal ul {
+.jqt .metal ul {
     border-top: 0;
     border-bottom: 0;
     background: rgb(180,180,180);
 }
 
-#jqt .edgetoedge ul li:first-child,
-#jqt .edgetoedge ul li:first-child a,
-#jqt .edgetoedge ul li:last-child,
-#jqt .edgetoedge ul li:last-child a,
-#jqt .metal ul li:first-child a,
-#jqt .metal ul li:last-child a {
+.jqt .edgetoedge ul li:first-child,
+.jqt .edgetoedge ul li:first-child a,
+.jqt .edgetoedge ul li:last-child,
+.jqt .edgetoedge ul li:last-child a,
+.jqt .metal ul li:first-child a,
+.jqt .metal ul li:last-child a {
     -webkit-border-radius: 0;
 }
 
-#jqt .edgetoedge ul li small {
+.jqt .edgetoedge ul li small {
     font-size: 16px;
     line-height: 28px;
 }
 
-#jqt .edgetoedge li, #jqt .metal li {
+.jqt .edgetoedge li, .jqt .metal li {
     -webkit-border-radius: 0;
 }
 
-#jqt .edgetoedge li em {
+.jqt .edgetoedge li em {
     font-weight: normal;
     font-style: normal;
 }
 
-#jqt .edgetoedge h4 + ul {
+.jqt .edgetoedge h4 + ul {
     border-top: 1px solid rgb(152,158,164);
     border-bottom: 1px solid rgb(113,125,133);
 }
@@ -425,7 +443,21 @@ div#jqt.landscape .toolbar > h1 {
 
 /* @group Mini Label */
 
-#jqt ul li small {
+.jqt ul li .left {
+   color: #369;
+   font: 12px Helvetica;
+   font-weight: bold;
+   text-align: right;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   display: block;
+   float: left;
+   width: 26%;
+   overflow: hidden;
+   padding: 3px 5px 0px 0px;
+}
+
+.jqt ul li small {
     color: #369;
     font: 17px "Helvetica Neue", Helvetica;
     text-align: right;
@@ -438,11 +470,11 @@ div#jqt.landscape .toolbar > h1 {
     padding: 3px 0px;
 }
 
-#jqt ul li.arrow small {
+.jqt ul li.arrow small {
     padding: 0 15px;
 }
 
-#jqt ul li small.counter {
+.jqt ul li small.counter {
     font-size: 17px !important;
     line-height: 13px !important;
     font-weight: bold;
@@ -455,7 +487,7 @@ div#jqt.landscape .toolbar > h1 {
     margin-top: -22px;
 }
 
-#jqt ul li.arrow small.counter {
+.jqt ul li.arrow small.counter {
     margin-right: 15px;
 }
 
@@ -463,13 +495,13 @@ div#jqt.landscape .toolbar > h1 {
 
 /* @group Plastic */
 
-#jqt #plastic ul li.arrow, #jqt #metal ul li.arrow {
+.jqt #plastic ul li.arrow, .jqt #metal ul li.arrow {
     background-image: url(img/listArrow.png);
     background-position: right center;
     background-repeat: no-repeat;
 }
 
-#jqt .edgetoedge ul, #jqt .metal ul, #jqt .plastic ul {
+.jqt .edgetoedge ul, .jqt .metal ul, .jqt .plastic ul {
     -webkit-border-radius: 0;
     margin: 0;
     border-left: 0;
@@ -477,28 +509,28 @@ div#jqt.landscape .toolbar > h1 {
     border-top: 0;
 }
 
-#jqt .metal ul li {
+.jqt .metal ul li {
     border-top: 1px solid rgb(238,238,238);
     border-bottom: 1px solid rgb(156,158,165);
     font-size: 26px;
     text-shadow: #fff 0 1px 0;
 }
 
-#jqt .metal ul li a {
+.jqt .metal ul li a {
     line-height: 26px;
     margin: 0;
     padding: 13px 0;
 }
 
-#jqt .metal ul li a:hover {
+.jqt .metal ul li a:hover {
     color: rgb(0,0,0);
 }
 
-#jqt .metal ul li:hover small {
+.jqt .metal ul li:hover small {
     color: inherit;
 }
 
-#jqt .metal ul li a em {
+.jqt .metal ul li a em {
     display: block;
     font-size: 14px;
     font-style: normal;
@@ -507,29 +539,29 @@ div#jqt.landscape .toolbar > h1 {
     line-height: 14px;
 }
 
-#jqt .metal ul li small {
+.jqt .metal ul li small {
     float: right;
     position: relative;
     margin-top: 10px;
     font-weight: bold;
 }
 
-#jqt .metal ul li.arrow a small {
+.jqt .metal ul li.arrow a small {
     padding-right: 0;
     line-height: 17px;
 }
 
-#jqt .metal ul li.arrow {
-    background:  url(../img/chevron.png) right center no-repeat;
+.jqt .metal ul li.arrow {
+    url(img/chevron.png) right center no-repeat;
 }
 
-#jqt .plastic {
+.jqt .plastic {
     margin: 0;
     padding: 0;
     background: rgb(173,173,173);
 }
 
-#jqt .plastic ul {
+.jqt .plastic ul {
     -webkit-border-radius: 0;
     margin: 0;
     border-left: 0;
@@ -538,40 +570,40 @@ div#jqt.landscape .toolbar > h1 {
     background-color: rgb(173,173,173);
 }
 
-#jqt .plastic ul li {
+.jqt .plastic ul li {
     -webkit-border-radius: 0;
     border-top: 1px solid rgb(191,191,191);
     border-bottom: 1px solid rgb(157,157,157);
 }
 
-#jqt .plastic ul li:nth-child(odd) {
+.jqt .plastic ul li:nth-child(odd) {
     background-color: rgb(152,152,152);
     border-top: 1px solid rgb(181,181,181);
     border-bottom: 1px solid rgb(138,138,138);
 }
 
-#jqt .plastic ul + p {
+.jqt .plastic ul + p {
     font-size: 11px;
     color: #2f3237;
     text-shadow: none;
     padding: 10px 10px;
 }
 
-#jqt .plastic ul + p strong {
+.jqt .plastic ul + p strong {
     font-size: 14px;
     line-height: 18px;
     text-shadow: #fff 0 1px 0;
 }
 
-#jqt .plastic ul li a {
+.jqt .plastic ul li a {
     text-shadow: rgb(211,211,211) 0 1px 0;
 }
 
-#jqt .plastic ul li:nth-child(odd) a {
+.jqt .plastic ul li:nth-child(odd) a {
     text-shadow: rgb(191,191,191) 0 1px 0;
 }
 
-#jqt .plastic ul li small {
+.jqt .plastic ul li small {
     color: #3C3C3C;
     text-shadow: rgb(211,211,211) 0 1px 0;
     font-size: 13px;
@@ -580,18 +612,18 @@ div#jqt.landscape .toolbar > h1 {
     line-height: 24px;
 }
 
-#jqt #plastic ul.minibanner, #jqt #plastic ul.bigbanner {
+.jqt #plastic ul.minibanner, .jqt #plastic ul.bigbanner {
     margin: 10px;
     border: 0;
     height: 81px;
     clear: both;
 }
 
-#jqt #plastic ul.bigbanner {
+.jqt #plastic ul.bigbanner {
     height: 140px !important;
 }
 
-#jqt #plastic ul.minibanner li {
+.jqt #plastic ul.minibanner li {
     border: 1px solid rgb(138,138,138);
     background-color: rgb(152,152,152);
     width: 145px;
@@ -601,7 +633,7 @@ div#jqt.landscape .toolbar > h1 {
     padding: 0;
 }
 
-#jqt #plastic ul.bigbanner li {
+.jqt #plastic ul.bigbanner li {
     border: 1px solid rgb(138,138,138);
     background-color: rgb(152,152,152);
     width: 296px;
@@ -612,11 +644,11 @@ div#jqt.landscape .toolbar > h1 {
     margin-bottom: 4px;
 }
 
-#jqt #plastic ul.minibanner li:first-child {
+.jqt #plastic ul.minibanner li:first-child {
     margin-right: 6px;
 }
 
-#jqt #plastic ul.minibanner li a {
+.jqt #plastic ul.minibanner li a {
     color: transparent;
     text-shadow: none;
     display: block;
@@ -624,7 +656,7 @@ div#jqt.landscape .toolbar > h1 {
     height: 81px;
 }
 
-#jqt #plastic ul.bigbanner li a {
+.jqt #plastic ul.bigbanner li a {
     color: transparent;
     text-shadow: none;
     display: block;
@@ -636,14 +668,14 @@ div#jqt.landscape .toolbar > h1 {
 
 /* @group Individual */
 
-#jqt ul.individual {
+.jqt ul.individual {
     border: 0;
     background: none;
     clear: both;
     overflow: hidden;
 }
 
-#jqt ul.individual li {
+.jqt ul.individual li {
     color: rgb(183,190,205);
     background: white;
     border: 1px solid rgb(180,180,180);
@@ -657,11 +689,11 @@ div#jqt.landscape .toolbar > h1 {
     padding: 11px 10px 14px 10px;
 }
 
-#jqt ul.individual li + li {
+.jqt ul.individual li + li {
     float: right;
 }
 
-#jqt ul.individual li a {
+.jqt ul.individual li a {
     color: rgb(50,79,133);
     line-height: 16px;
     margin: -11px -10px -14px -10px;
@@ -669,7 +701,7 @@ div#jqt.landscape .toolbar > h1 {
     -webkit-border-radius: 8px;
 }
 
-#jqt ul.individual li a:hover {
+.jqt ul.individual li a:hover {
     color: #fff;
     background: #36c;
 }
@@ -679,20 +711,21 @@ div#jqt.landscape .toolbar > h1 {
 /* @group Toggle */
 
 
-#jqt .toggle {
+.jqt .toggle {
     width: 94px;
     position: relative;
     height: 27px;
     display: block;
     overflow: hidden;
     float: right;
+    -webkit-mask-box-image: url(img/on_off.png) 5 stretch;
 }
 
-#jqt .toggle input[type="checkbox"]:checked {
+.jqt .toggle input[type="checkbox"]:checked {
     left: 0px;
 }
 
-#jqt .toggle input[type="checkbox"] {
+.jqt .toggle input[type="checkbox"] {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     margin: 0;
     -webkit-border-radius: 5px;
@@ -712,7 +745,7 @@ div#jqt.landscape .toolbar > h1 {
 
 
 
-#jqt .info {
+.jqt .info {
     background: #dce1eb;
     font-size: 12px;
     line-height: 16px;
