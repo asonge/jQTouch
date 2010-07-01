@@ -27,9 +27,8 @@
     $.jQTouch = function(options) {
 
         // Set support values
-        $.support.WebKitCSSMatrix = (typeof WebKitCSSMatrix == "object");
         $.support.touch = (typeof Touch == "object");
-        $.support.WebKitAnimationEvent = (typeof WebKitTransitionEvent == "object");
+        $.support.WebKitAnimationEvent = !(typeof WebKitTransitionEvent == "undefined");
 
         // Initialize internal variables
         var $body,
@@ -37,10 +36,9 @@
             hist=[],
             newPageCount=0,
             jQTSettings={},
-	        hashCheckInterval,
+	         hashCheckInterval,
             currentPage,
             orientation,
-            isMobileWebKit = RegExp(" Mobile/").test(navigator.userAgent),
             tapReady=true,
             lastAnimationTime=0,
             touchSelectors=[],
@@ -167,9 +165,9 @@
                                 return true;
                             }
                         }
-                        
+
                         return false;
-                        
+
                     });
 
                     // This additionally gets rid of form focusses
@@ -205,7 +203,7 @@
             {
                 window.history.go(-2);
             }
-            
+
             var numberOfPages = Math.min(parseInt(to || 1, 10), hist.length-1),
                 curPage = hist[0];
 
@@ -258,7 +256,7 @@
                 {
                     toPage = nextPage;
                 }
-                
+
             }
             if (animatePages(fromPage, toPage, animation, reverse)) {
                 addPageToHistory(toPage, animation, reverse);
@@ -416,12 +414,12 @@
 
                 toPage.addClass(animation.name + ' in current');
                 fromPage.addClass(animation.name + ' out');
-                
+
                 setTimeout(function(){
                     toPage.addClass('start');
                     fromPage.addClass('start');
                 }, 0);
-                
+
 
             } else {
                 toPage.addClass('current');
@@ -438,7 +436,7 @@
             }
             else if (location.hash == '') {
                 location.hash = '#' + curid;
-            } 
+            }
         }
         function startHashCheck() {
             hashCheckInterval = setInterval(hashCheck, 100);
@@ -542,18 +540,18 @@
         }
         function handleTouch(e) {
             var $el = $(e.target);
-            
+
             // Only handle touchSelectors
             if (!$(e.target).is(touchSelectors.join(', '))) {
                 var $link = $(e.target).closest('a, area');
-                
+
                 if ($link.length && $link.is(touchSelectors.join(', '))) {
                     $el = $link;
                 } else {
                     return;
                 }
             }
-            
+
             if (e) {
                 var hoverTimeout = null,
                     startX = event.changedTouches[0].clientX,
@@ -587,7 +585,7 @@
                 }
 
                 clearTimeout(hoverTimeout);
-            } 
+            }
 
             function touchend() {
                 updateChanges();
