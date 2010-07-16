@@ -184,11 +184,11 @@
                     });
                 }
 
-                // Make sure that exactly one pane has the "active" class
-                if ($jqt.filter('.active').length == 0) {
-                  $jqt.eq(0).addClass('active');
+                // Make sure that exactly one pane has the "currentpane" class
+                if ($jqt.filter('.currentpane').length == 0) {
+                  $jqt.eq(0).addClass('currentpane');
                 } else {
-                  $jqt.filter('.active').slice(1).removeClass('active');
+                  $jqt.filter('.currentpane').slice(1).removeClass('currentpane');
                 }
 
                 // Make sure exactly one child of each pane has "current" class
@@ -202,7 +202,7 @@
                 });
 
                 // Go to the top of the "current" page
-                currentPage = $jqt.filter('.active').children('.current');
+                currentPage = $jqt.filter('.currentpane').children('.current');
                 location.hash = '#' + $(currentPage).attr('id');
                 addPageToHistory(currentPage);
                 scrollTo(0, 1);
@@ -358,6 +358,15 @@
         }
 
         function animatePages(fromPage, toPage, animation, backwards) {
+
+            var toPagePane = toPage.parent();
+            var fromPagePane = fromPage.parent();
+            var isTransPane = toPagePane[0] != fromPagePane[0];
+            if ( isTransPane && toPagePane.is(':visible') ) {
+               fromPage = toPagePane.children('.current');
+               isTransPane = false;
+            }
+
             // Error check for target page
             if (toPage.length === 0) {
                 $.fn.unselect();
@@ -389,12 +398,15 @@
 
                 if (animation) {
                     toPage.removeClass('start in ' + animation.name);
-                    fromPage.removeClass('start out current ' + animation.name);
+                    fromPage.removeClass('start out ' + animation.name);
                     if (backwards) {
                         toPage.toggleClass('reverse');
                         fromPage.toggleClass('reverse');
                     }
                     toPage.css('top', 0);
+                }
+                if (isTransPane) {
+                    fromPagePane.removeClass('currentPane');
                 } else {
                     fromPage.removeClass('current');
                 }
@@ -434,7 +446,7 @@
                 fromPage[0].addEventListener('webkitTransitionEnd', callback);
                 fromPage[0].addEventListener('webkitAnimationEnd', callback);
 
-                toPage.addClass(animation.name + ' in current');
+                toPage.addClass(animation.name + ' in');
                 fromPage.addClass(animation.name + ' out');
 
                 setTimeout(function(){
@@ -442,11 +454,18 @@
                     fromPage.addClass('start');
                 }, 0);
 
-
             } else {
-                toPage.addClass('current');
                 callback();
             }
+
+            // If the animation is trans-pane (to and from pages are not in the same container),
+            // then go ahead and remove the marker from the current page of the target pane.
+            if (isTransPane) {
+                toPagePane.children('.current').removeClass('current');
+            }
+
+            toPage.addClass('current');
+            toPagePane.addClass('currentpane');
 
             return true;
         }
@@ -454,11 +473,8 @@
         function hashCheck() {
             var curid = currentPage.attr('id');
             if (location.hash != '#' + curid) {
-                clearInterval(hashCheckInterval);
+                stopHashCheck();
                 goBack(location.hash);
-            }
-            else if (location.hash == '') {
-                location.hash = '#' + curid;
             }
         }
 
@@ -472,7 +488,7 @@
 
         function insertPages(nodes, animation, pane) {
             var targetPage = null;
-            pane = (typeof pane === 'undefined') ? $jqt.filter('.active') : $(pane);
+            pane = (typeof pane === 'undefined') ? $jqt.filter('.currentpane') : $(pane);
             $(nodes).each(function(index, node) {
                 var $node = $(this);
                 if (!$node.attr('id')) {
