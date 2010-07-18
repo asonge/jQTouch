@@ -27,8 +27,9 @@
     $.jQTouch = function(options) {
 
         // Set support values
-        $.support.touch = (typeof Touch == "object");
-        $.support.WebKitAnimationEvent = !(typeof WebKitTransitionEvent == "undefined");
+        $.support.WebKitCSSMatrix = (typeof WebKitCSSMatrix != "undefined");
+        $.support.touch = (typeof TouchEvent != "undefined");
+        $.support.WebKitAnimationEvent = (typeof WebKitTransitionEvent != "undefined");
 
         // Initialize internal variables
         var $body,
@@ -46,8 +47,9 @@
             publicObj={},
             tapBuffer=351,
             extensions=$.jQTouch.prototype.extensions,
-            animations=[];
-
+            defaultAnimations=['slide','flip','slideup','swap','cube','pop','dissolve','fade','back'],
+            animations=[],
+            hairExtensions='';
         // Get the party started
         init(options);
 
@@ -85,7 +87,7 @@
 
             // Preload images
             if (jQTSettings.preloadImages) {
-                for (var i = jQTSettings.preloadImages.length - 1; i >= 0; i--) {
+                for (var i = jQTSettings.preloadImages.length; i > 0; i--) {
                     (new Image()).src = jQTSettings.preloadImages[i];
                 };
             }
@@ -94,25 +96,25 @@
             // Set icon
             if (jQTSettings.icon) {
                 var precomposed = (jQTSettings.addGlossToIcon) ? '' : '-precomposed';
-                hairextensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + jQTSettings.icon + '" />';
+                hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + jQTSettings.icon + '" />';
             }
             // Set startup screen
             if (jQTSettings.startupScreen) {
-                hairextensions += '<link rel="apple-touch-startup-image" href="' + jQTSettings.startupScreen + '" />';
+                hairExtensions += '<link rel="apple-touch-startup-image" href="' + jQTSettings.startupScreen + '" />';
             }
             // Set viewport
             if (jQTSettings.fixedViewport) {
-                hairextensions += '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>';
+                hairExtensions += '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>';
             }
             // Set full-screen
             if (jQTSettings.fullScreen) {
-                hairextensions += '<meta name="apple-mobile-web-app-capable" content="yes" />';
+                hairExtensions += '<meta name="apple-mobile-web-app-capable" content="yes" />';
                 if (jQTSettings.statusBar) {
-                    hairextensions += '<meta name="apple-mobile-web-app-status-bar-style" content="' + jQTSettings.statusBar + '" />';
+                    hairExtensions += '<meta name="apple-mobile-web-app-status-bar-style" content="' + jQTSettings.statusBar + '" />';
                 }
             }
-            if (hairextensions) {
-                $head.prepend(hairextensions);
+            if (hairExtensions) {
+                $head.prepend(hairExtensions);
             }
 
             // Initialize on document ready:
