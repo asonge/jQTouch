@@ -330,7 +330,7 @@
             // Branch on internal or external href
             else if (hash && hash!='#') {
                 $el.addClass('active');
-                goTo($(hash).data('referrer', $el), animation, $(this).hasClass('reverse'));
+                goTo($("#"+decodeURIComponent(hash).substring(1).replace(/([^A-Za-z0-9_\u00A1-\uFFFF-])/g,"\\$1")).data('referrer', $el), animation, $(this).hasClass('reverse'));
             } else {
                 $el.addClass('loading active');
                 showPageByHref($el.attr('href'), {
@@ -472,7 +472,7 @@
 
         function hashCheck() {
             var curid = currentPage.attr('id');
-            if (location.hash != '#' + curid) {
+            if (decodeURIComponent(location.hash) != '#' + curid) {
                 stopHashCheck();
                 goBack(location.hash);
             }
